@@ -1,0 +1,25 @@
+{% extends 'home/header.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+<h2 style="text-align:center">Product Card</h2>
+<div class="row">
+{% for prod in pro %}
+
+    <div class="column">  
+        <div class="card">
+            <h3>{{ prod.category.name }}</h3>
+        <img src="{{ prod.image.url }}" alt="{{ prod.Name }}" style="width:100%;">
+        <h1>{{ prod.name }}</h1>
+        <p class="price">Rs{{ prod.price }}</p>
+        <p>{{ prod.about }}</p>
+        <p><a href="/prod_single/{{ prod.id }}">View in Detail</a></p>
+        <p><button>Add to Cart</button></p>
+        </div>
+    </div>
+        {% endfor %}
+</div>
+{% endblock %}

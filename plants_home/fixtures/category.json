@@ -1,0 +1,16 @@
+[
+    {
+      "model": "plants_home.Category",
+      "pk": 1,
+      "fields": {
+        "name": "follow_us"
+      }
+    },
+    {
+      "model": "plants_home.Category",
+      "pk": 2,
+      "fields": {
+        "first_name": "our_story"
+      }
+    }
+  ]
