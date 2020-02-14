@@ -31,6 +31,8 @@ urlpatterns = [
     path('vf_eco/', views.vf_eco),
     path('contact_us/', views.contact_us),
     path('successfull/', views.successfull , name= 'successfull'),
+    path('profile/', views.profile),
+    path('cart/', views.cart),
     path('footer/', views.footer)
 
 

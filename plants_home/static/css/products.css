@@ -1,41 +1,113 @@
-{
-  box-sizing: border-box;
+.product {
+  width:200px;
+  height:200px;
+  font-size: 10px;
+  font-family: 'Arial';
+  margin-bottom: 8px;
+  padding-top: 8px;
 }
-
-body {
-  font-family: Arial, Helvetica, sans-serif;
+.containerp .product span {
+  text-transform: uppercase;
+  font-size: 8px;
+  font-family: 'Arial';
+  color: #ccc;
+  display:inline-block;
+  transform: translateY(-16px);
 }
-
-/* Float four columns side by side */
-.column {
-  float: left;
-  width: 25%;
-  padding: 0 10px;
+.add-to-cart {
+  margin-right: 8px;
 }
-
-/* Remove extra left and right margins, due to padding */
-.row {margin: 0 -5px;}
-
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* Responsive columns */
-@media screen and (max-width: 600px) {
-  .column {
-    width: 100%;
-    display: block;
-    margin-bottom: 20px;
-  }
-}
-
-/* Style the counter cards */
-.card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  padding: 16px;
+.containerp {
+  display: inline-block;
+  margin: 24px;
   text-align: center;
-  background-color: #f1f1f1;
+  //background-color: #e5e5e5;
 }
+
+.containerp span.add-to-cart, .containerp span.add-to-wish {
+  font-size: 10px;
+  font-family: 'Arial';
+  font-weight: 800;
+  color: #666;
+  padding-bottom: 12px;
+  display: inline-block;
+  cursor: pointer;
+}
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+
+.search {
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
+.searchTerm {
+  width: 40%;
+  border: 3px solid #00B4CC;
+  
+  padding: 5px;
+  height: 36px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9DBFAF;
+}
+
+.searchTerm:focus{
+  color: #00B4CC;
+}
+
+.searchButton {
+  width: 40px;
+  height: 36px;
+  border: 1px solid #00B4CC;
+  background: #00B4CC;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.search-button{
+
+  width: 60%;
+  height: 72px;
+  position: relative;
+  display: flex;
+  padding:15px;
+  margin-top: -30px;
+  margin-left: 50%;
+
+}
+
+/*Resize the wrap to see the search bar change!*/
+.wrap{
+  width: 30%;
+  position: absolute;
+  top: 15%;
+  left: 35%;
+  transform: translate(-50%, -50%);
+}
+
+div.row.search{
+  width: 62%;
+  height: 30px;
+  position: relative;
+  display: flex;
+  padding:15px;
+  margin-top: 15px;
+  margin-left: 22%;
+  
+}
+
+div.filter-price{
+  width: 50%;
+  height: 30px;
+  position: relative;
+  display: flex;
+  padding:15px;
+  margin-top: -30px;
+  margin-left: 38%;
+}
+

@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'green_admin',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,14 +44,32 @@ INSTALLED_APPS = [
     'allauth', # new
     'allauth.account', # new
     'allauth.socialaccount', # new
+    'stripe',
     'crispy_forms',
     'bootstrap4',
-    
     'plants_home',
     'users.apps.UsersConfig',
     'pages.apps.PagesConfig',
     
+    
 ]
+
+# Stripe and Braintree Settings
+
+if DEBUG:
+    # test keys
+    STRIPE_PUBLISHABLE_KEY = 'pk_test_KmefFlTQ36doIiPF80ZACFPF00emHSn9bR'
+    STRIPE_SECRET_KEY = 'sk_test_WTOGrtgDVQX24LVIn6bvZjqW008FA2cKEK'
+    BT_ENVIRONMENT='sandbox'
+    BT_MERCHANT_ID='z4vj27p38hvdd245'
+    BT_PUBLIC_KEY='f2zwxc4qp3x8r4pw'
+    BT_PRIVATE_KEY='a36911908d94e2f1c45bc6875cb70306'
+else:
+    # live keys
+    STRIPE_PUBLISHABLE_KEY = 'pk_test_KmefFlTQ36doIiPF80ZACFPF00emHSn9bR'
+    STRIPE_SECRET_KEY = 'sk_test_WTOGrtgDVQX24LVIn6bvZjqW008FA2cKEK'
+
+
 
 FIXTURE_DIRS = (
    '/Greenspace/Greenspace/plants_home/fixtures/',
@@ -59,7 +78,7 @@ FIXTURE_DIRS = (
 AUTH_USER_MODEL = 'users.CustomUser'
 
 # emaillogin_project/settings.py
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -80,12 +99,13 @@ ACCOUNT_UNIQUE_EMAIL = True
 # ACCOUNT_ADAPTER = 'Greenspace.users.adapters.AccountAdapter'
 
 
-EMAIL_BACKEND = ‘django.core.mail.backends.smtp.EmailBackend’
-EMAIL_HOST = ‘smtp.gmail.com’
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = ‘spacegreen57@gmail.com’
-EMAIL_HOST_PASSWORD = ‘greenspace2020’
+EMAIL_HOST_USER = 'greenspace173@gmail.com'
+EMAIL_HOST_PASSWORD = 'plotno.143'
 
 
 MIDDLEWARE = [
@@ -129,6 +149,16 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'test12',
+#         'USER': 'root',
+#         'PASSWORD': 'spectre',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

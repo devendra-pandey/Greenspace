@@ -8,7 +8,10 @@
 		  <div class="home-slider owl-carousel">
 			{% for image in img %}
 				<div class="w3-content w3-section" style="max-width:600px">
-				<img class="mySlides" src="{{ image.image.url }}" style="width:100%">
+				<img class="mySlides" src="{{ image.image.url }} " height="100%" width="100%">
+				<div style="margin-left: 40%;" >
+					<p> {{ image.title }} </p>
+				</div>
 				</div>
 			{% endfor %}
 			</div>

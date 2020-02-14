@@ -47,3 +47,30 @@ class Contact_us(models.Model):
     description= models.CharField(max_length=1000, blank=True)
     image = models.ImageField(upload_to='contact_us/')
     uploaded_at = models.DateTimeField(auto_now_add=True)
+
+
+class Cart(models.Model):
+    image = models.ImageField(upload_to='cart/')
+    name = models.CharField(max_length=20, blank=False)
+    about = models.CharField(max_length=300, blank=False)
+    price= models.CharField(max_length=20, blank=False)
+    quantity = models.CharField(max_length=10, blank=False)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    
+
+class Order(models.Model):
+    product_id = models.CharField(max_length=50, blank=True)    
+    image = models.ImageField(upload_to='order/')
+    name = models.CharField(max_length=20, blank=False)
+    about = models.CharField(max_length=300, blank=False)
+    price= models.CharField(max_length=20, blank=False)
+    quantity = models.CharField(max_length=10, blank=False)
+    ordered_at = models.DateTimeField(auto_now_add=True)
+
+class Address(models.Model):
+    name = models.CharField(max_length=20, blank=False)
+    street = models.CharField(max_length=20, blank=False)
+    Area = models.CharField(max_length=20, blank=False) 
+    city = models.CharField(max_length=20, blank=False)
+    pincode = models.CharField(max_length=20, blank=False)
+    state = models.CharField(max_length=20, blank=False)

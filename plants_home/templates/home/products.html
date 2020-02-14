@@ -5,21 +5,72 @@
 {% block content %}
 
 
-<h2 style="text-align:center">Product Card</h2>
-<div class="row">
-{% for prod in pro %}
+    <div class="container">
+        <form method="GET">
+            {% csrf_token %}
+            <div class="wrap">
+                <div class="search">
+                <input type="text" class="searchTerm" placeholder="What are you looking for?">
+                <button type="submit" class="searchButton">
+                    <i class="fa fa-search"></i>
+                </button>
+                </div>
+            </div>
 
-    <div class="column">  
-        <div class="card">
-            <h3>{{ prod.category.name }}</h3>
-        <img src="{{ prod.image.url }}" alt="{{ prod.Name }}" style="width:100%;">
-        <h1>{{ prod.name }}</h1>
-        <p class="price">Rs{{ prod.price }}</p>
-        <p>{{ prod.about }}</p>
-        <p><a href="/prod_single/{{ prod.id }}">View in Detail</a></p>
-        <p><button>Add to Cart</button></p>
-        </div>
+            <div class="row search">
+            <div class="col-8">
+                <select name= "filter_category" class="searchTerm">
+                    <option value="Select the Category">Select the Category</option>
+                    {% for category in cat %}
+                    <option value= "{{ category.name  }}"> {{ category.name  }}</option>
+                    {% endfor %}
+                </select>
+                
+            </div>
+            {% for cate in category %}
+                <input type="text" name ="category_id" value="{{ cate.id }}">
+            {% endfor %}
+            </div>
+            
+            <div class="filter-price">
+                <div class="col-8">
+                  <input id="search" type="text" class="searchTerm" placeholder="Filter By Price">
+                </div>
+            </div>
+            <div class= "search-button">
+                <div class="col-8">
+                    <input type="submit" value="Search">
+                </div>
+            </div>
+        </form>
     </div>
+    
+
+        <h4>NEW COLLECTION</h4>
+        {% for prod in pro %}
+
+        <div class="containerp">
+            <div class="product" data-id="id03" data-price="36.00" data-title="Self Cooling Shot Glasses"
+			data-url="https://www.momastore.org/museum/moma/ProductDisplay_Self%20Cooling%20Shot%20Glasses_10451_10001_208772_-1_26715_11497_208858"
+			style="background: url({{ prod.image.url }});background-size: cover;">
+		</div>
+
+        <span>{{ prod.name }}</span> <br>
+        <span>{{ prod.category.name }}</span><br>
+        <span><a href="/prod_single/{{ prod.id }}">View in Detail</a></span> <br>
+        <span>Rs {{ prod.price }} /-</span> <br>
+        {% if user.is_authenticated %}
+		<span class="add-to-cart"><a href="">Add to cart</a></span>
+        {% else %}
+        <span class="add-to-cart"><a href="/accounts/login/">Login to add the product</a></span>
+        {% endif %}
+        </div>
+        
         {% endfor %}
-</div>
+        
+
+{% include 'home/footer.html' %}
+
+<script src="{% static 'js/cart.js' %}"></script>
+
 {% endblock %}

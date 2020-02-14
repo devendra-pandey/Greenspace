@@ -1,23 +1,14 @@
 from django.shortcuts import render, redirect
-from .models import Gallery, Home_header_image, Page_images, Product
+from .models import Gallery, Home_header_image, Page_images, Product , Category
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from users .forms import CustomUserCreationForm
 from plants_home .forms import Contact_usCreate
+from django.core.mail import send_mail , BadHeaderError , EmailMessage
+from django.template.loader import get_template
 
-# def my_view(request):
-#     username = request.POST['username']
-#     password = request.POST['password']
-#     user = authenticate(request, username=username, password=password)
-#     if user is not None:
-#         login(request, user)
-#         # Redirect to a success page.
-#         ...
-#     else:
-#         # Return an 'invalid login' error message.
-#         ...
 
 # Create your views here.
 def server_505(request):
@@ -30,22 +21,49 @@ def eror_404(request):
 
 
 def index(request):
-    img = Gallery.objects.all()
+    img = Home_header_image.objects.all()
 
     return render(request, "home/index.html", {'img':img})
 
 def our_story(request):
-    gal = Home_header_image.objects.all()
+    gal = Home_header_image.objects.all().filter(page_name = 'our_story')
 
     image_info = Page_images.objects.all().filter(page_name = 'our_story')
 
+    context = {
+        "gal": gal,
+        "image_info":image_info
 
-    return render(request, "about/our_story.html",{'gal':gal, 'image_info':image_info})
+    }
+    return render(request, "about/our_story.html",context)
 
 def product(request):
+
+    filter_category = request.GET.get('filter_category')
+    category_id = request.GET.get('category_id')
+    print("hey its working")
+    print(filter_category)
+
+    cat = Category.objects.all()
+
+    category = Category.objects.filter(name=filter_category)
+
+    
+    print(category_id)
+
+
     pro = Product.objects.all()
 
-    return render(request, "home/products.html", {'pro':pro})
+    # pro1 = Product.objects.all().filter(category =category_id)
+    context = {
+        "cat": cat,
+        "pro":pro,
+        "category":category,
+        # "pro1":pro1,
+
+    }
+
+    return render(request, "home/products.html", context)
 
 def prod_single(request,id):
 
@@ -99,7 +117,11 @@ def agritech(request):
     return render(request, "solutions/agritech_inn.html")
 
 def circular(request):
-    return render(request, "solutions/circular_eco.html")
+    gal = Home_header_image.objects.all().filter(page_name = 'circular_economy')
+
+    image_info = Page_images.objects.all().filter(page_name = 'circular_economy')
+
+    return render(request, "solutions/circular_eco.html",{'gal':gal, 'image_info':image_info})
 
 def climate_change(request):
     return render(request, "solutions/climate_change.html")
@@ -114,30 +136,80 @@ def social_impact(request):
     return render(request, "solutions/social_impact.html")
 
 def vf_eco(request):
-    return render(request, "solutions/vf_eco.html")
+
+    gal = Home_header_image.objects.all().filter(page_name = 'vf_eco')
+
+    image_info = Page_images.objects.all().filter(page_name = 'vf_eco')
+
+    return render(request, "solutions/vf_eco.html",{'gal':gal, 'image_info':image_info})
 
 def login(request):
     return render(request, "account/login.html")
 
+
 def signup(request):
     return render(request, "account/signup.html")
 
+
+@login_required
 def contact_us(request):
 
     upload = Contact_usCreate()
     if request.method == 'POST':
         upload = Contact_usCreate(request.POST, request.FILES)
         if upload.is_valid():
-            upload.save()
+            name = request.POST.get('name')
+            email_id = request.POST.get('email_id')
+            subject = request.POST.get('subject')
+            contact_number = request.POST.get('contact_number')
+            description = request.POST.get('description')
+
+
+            template = get_template('home/contact_template.html')
+            context = {
+                'name': name,
+                'email_id': email_id,
+                'subject':subject,
+                'contact_number': contact_number,
+                'description': description,
+            }
+            content = template.render(context)
+
+            email = EmailMessage(
+                "New contact form submission",
+                content,
+                "Greenspace" +'',
+                ['greenspace173@gmail.com'],
+                headers = {'Reply-To': email_id }
+            )
+            email.send()
+            
+            upload.save() 
             return redirect('successfull')
         else:
             return HttpResponse("""your form is wrong, reload on <a href = "{{ url : '/'}}">reload</a>""")
     else:
         return render(request, 'home/contact_us.html')
-    return render(request, 'home/contact_us.html')
+    
+    context = {
+        "Contact_usCreate": Contact_usCreate,
+    }
+    return render(request, 'home/contact_us.html', context)
+
 
 def successfull(request):
     return render(request, "home/successfull.html")
 
 def footer(request):
     return render(request, 'home/footer.html')
+
+@login_required
+def profile(request):
+
+    return render(request, 'home/profile.html')
+
+
+@login_required
+def cart(request):
+
+    return render(request, 'home/cart.html')         

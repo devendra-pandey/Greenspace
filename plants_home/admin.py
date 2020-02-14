@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Gallery, Home_header_image, Page_images, Product,Category, Contact_us
+from .models import Gallery, Home_header_image, Page_images, Product,Category, Contact_us , Cart , Order, Address
 from django.contrib.auth.models import User
 from django.contrib import admin
 from django.contrib.auth import get_user_model
@@ -13,3 +13,6 @@ admin.site.register(Page_images)
 admin.site.register(Product)
 admin.site.register(Category)
 admin.site.register(Contact_us)
+admin.site.register(Cart)
+admin.site.register(Order)
+admin.site.register(Address)

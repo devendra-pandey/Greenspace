@@ -6,49 +6,43 @@
 {% block content %}
 
 
-{% if gal %}
-{% for our_info in gal %}
+    {% if gal %}
+        {% for our_info in gal %}
 
-<div style="position:relative">
-    <div style="float:left; width: 50%; height:75%; background-color:red;">
-        <!-- <img src = "{{ our_info.image.url }}" >  -->
+            <div style="position:relative">
+                <div style="float:left; width: 30%; height:55%; background-color:red;">
+                    <img src = "{{ our_info.image.url }}" height="810px" width="1140px" > 
+                </div>
+                <div style="margin-left: 70%; margin-right: 10%; ">
+                    <b><h3>{{ our_info.title }}</h3></b>
+                    {{ our_info.content }}
+                </div>
+            </div>
+            <br>
+            <br>
+            {{ our_info.info }}
+        {% endfor %} 
+
+    {% else %}
+    <br>
+    <br>
+    <br>
+    <br> <p>No documents.</p>
+    {% endif %}
+
+
+    {% if image_info %}
+    <div style="margin-top: 20%;" >
+        {% for img in image_info %}
+            <div class="w3-container"  >
+                <img src="{{ img.image.url }}" class="w3-round-large" alt="Norway" style="width:30%">
+                <h3>{{ img.title }}</h3>
+
+            </div>
+        {% endfor %}
     </div>
-    <div style="float:left; width: 50%; height:75%;">
-        <b><h3>{{ our_info.title }}</h3></b>
-        {{ our_info.content }}
-    </div>
-    
-</div>
-
-
-<br>
-
-
-<br>
-{{ our_info.info }}
-
-
-
-{% endfor %} 
-
-{% else %}
-   <br>
-   <br>
-   <br>
-   <br> <p>No documents.</p>
-{% endif %}
-
-
-{% if image_info %}
-{% for img in image_info %}
-  <div class="w3-container">
-    <img src="{{ img.image.url }}" class="w3-round-large" alt="Norway" style="width:30%">
-    <h3>{{ img.title }}</h3>
-
-</div>
-{% endfor %}
-{% else %}
-<p>no products</p>
-{% endif %}
+    {% else %}
+        <p>no products</p>
+    {% endif %}
 {% endblock %}
 
